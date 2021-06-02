@@ -5,3 +5,6 @@ encuestas/build/web/WEB-INF/classes/com/systel/model/DbConn.class
 encuestas/build/web/WEB-INF/classes/com/systel/model/StarConn.class
 encuestas/build/web/WEB-INF/lib/json-simple-1.1.jar
 encuestas/build/web/WEB-INF/lib/mysql-connector-java-5.1.45-bin.jar
+/encuestas/nbproject/private/
+/encuestas/dist/
+/encuestas/build/

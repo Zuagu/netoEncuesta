@@ -17,17 +17,20 @@
             <div class="login-text">
                 <button class="cta"><i class="material-icons">arrow_downward</i></button>
                 <div class="input-field text">
-                    <h3 class="center">Inicia</h3>
-                    <div class="input-field col s12 m12 l12">
-                        <input placeholder="Usuario" id="usuario" type="text" class="validate" style="background-color: white !important; border-radius:4px;color: black;width: 95%;">
-                        <label for="usuario" class="color:white !important;">Usuario</label>
-                    </div>
-                    <div class="input-field col s12 m12 l12">
-                        <input placeholder="Contraseña" id="password" type="text" class="validate" style="background-color: white !important; border-radius:4px;color: black; width: 95%;">
-                        <label for="password" class="color:white !important;">Contraseña</label>
-                    </div>
-                    <button class="login-btn butt">Ingresar</button>
-                    <button class="signup- butt">Registrate</button>
+                    <form id="login" class="" style="" name="login" action="/sistema/main.jsp" method="post">
+                        <h3 class="center">Inicia</h3>
+                        <div class="input-field col s12 m12 l12">
+                            <input id="ip" type="hidden">
+                            <input id="id_perfil" name="id_perfil" type="hidden" value="2">
+                            <input placeholder="Usuario" id="id_usuario" name="id_usuario" type="text" class="validate" style="background-color: white !important; border-radius:4px;color: black;width: 95%;">
+                            <label for="usuario" class="color:white !important;">Usuario</label>
+                        </div>
+                        <div class="input-field col s12 m12 l12">
+                            <input placeholder="Contraseña" name="password" id="password" type="text" class="validate" style="background-color: white !important; border-radius:4px;color: black; width: 95%;">
+                            <label for="password" class="color:white !important;">Contraseña</label>
+                        </div>
+                        <a id="iniciar_sesion" class="boton_login z-depth-2 hoverable">Acceder</a>
+                    </form>
                 </div>
             </div>
             <div class="call-text" style="background-color: #f7f7f7;">

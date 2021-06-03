@@ -5,6 +5,8 @@
  */
 package callcenter.controller;
 
+import callcenter.model.ModelGraficas;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -31,12 +33,8 @@ public class ControllerGraficas extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         
-        if (action.equals("select_buscar_cuentas")) {
-            String Respuesta = ""; 
-//            ModelGestor.select_buscar_cuentas(
-//                    request.getParameter("busqueda"),
-//                    Integer.parseInt(request.getParameter("id_puesto"))
-//            );
+        if (action.equals("grafica1")) {
+            String Respuesta = ModelGraficas.grafica1();
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
             writer.print(Respuesta);

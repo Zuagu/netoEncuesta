@@ -6,6 +6,8 @@
 package callcenter.model;
 
 import java.sql.SQLException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -13,23 +15,28 @@ import java.sql.SQLException;
  */
 public class ModelGraficas {
     
-    public static int iniciar_sesion() {
+    public static String grafica1() {
         try {
-            StartConexion inicioConexion = new StartConexion();
-            int resultado = 0;
-            String sql = "select ";
+            StartConexion ic = new StartConexion();
+            String resultado = "";
+            JSONArray dataEncuesta = new JSONArray();
+            String sql = "call neto_grafica_1();";
             System.out.println(sql);
-            inicioConexion.rs = inicioConexion.st.executeQuery(sql);
-            while (inicioConexion.rs.next()) {
-                resultado = Integer.parseInt(inicioConexion.rs.getString("resultado"));
+            ic.rs = ic.st.executeQuery(sql);
+            // preg1, valor
+            while (ic.rs.next()) {
+                JSONObject ressEnc = new JSONObject();
+                ressEnc.put("preg1", ic.rs.getString("preg1"));
+                ressEnc.put("valor", ic.rs.getString("valor"));
+                dataEncuesta.add(ressEnc);
             }
-            inicioConexion.conn.close();
-            inicioConexion.rs.close();
-            inicioConexion.st.close();
-            return resultado;
+            ic.conn.close();
+            ic.rs.close();
+            ic.st.close();
+            return dataEncuesta.toJSONString();
         } catch (SQLException ex) {
             System.out.println(ex);
-            return 0;
+            return "";
         }
     }
     

@@ -831,4 +831,11 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
+    <resource-ref>
+        <description>server1</description>
+        <res-ref-name>jdbc/server1</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container2</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
 </web-app>

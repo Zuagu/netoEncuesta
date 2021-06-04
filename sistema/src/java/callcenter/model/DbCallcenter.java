@@ -25,6 +25,19 @@ public class DbCallcenter {
             return null;
         }
     }
+    
+    public static Connection getConnectionPoolServer1() {
+        try {
+            if (dataSource == null) {
+                InitialContext ic = new InitialContext();
+                dataSource = (DataSource) ic.lookup("java:/comp/env/jdbc/server1");
+            }
+            return dataSource.getConnection();
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
 
     public static void freeResultSet(ResultSet rs) {
         try {

@@ -14,8 +14,10 @@
         <title>Graficas</title>
         <link rel="stylesheet" type="text/css" href="css/css/icons-material.css">
         <link rel="stylesheet" type="text/css" href="css/css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="css/css/style_gestor.css">
     </head>
     <body>
+         <jsp:include page="header.jsp"/>
         <h1 class="center">Systel voice!</h1>
 
         <script type="text/javascript" src="js/Highcharts-7.0.3/code/highcharts.js"></script>
@@ -40,6 +42,13 @@
                     </p>
                 </div>
 
+                <div class="col s12 hoverable card">
+                    <div id="container4"></div>
+                    <p class="highcharts-description">
+                        nada
+                    </p>
+                </div>
+
             </div>
         </figure>
 
@@ -49,7 +58,8 @@
 
             function select_grafica1() {
                 let params = {
-                    action: "grafica1"
+                    action: "grafica1",
+                    id_trabajo: id_puesto2_usuario
                 };
                 $.ajax({
                     type: "POST",
@@ -119,65 +129,179 @@
                 });
             }
 
+            function select_grafica2() {
+                let params = {
+                    action: "grafica2",
+                    id_trabajo: id_puesto2_usuario
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "ControllerGraficas",
+                    data: params,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+
+                        Highcharts.chart('container3', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Grafica de votos'
+                            },
+                            subtitle: {
+                                text: 'Source: SystelVoice.com'
+                            },
+                            xAxis: {
+                                categories: [
+                                    'Candidatos'
+                                ],
+                                crosshair: true
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Respuesta'
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="padding:0"><b>{point.y:.0f} votos</b></td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: response
+                        });
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+
+            function graficaavance() {
+                let params = {
+                    action: "graficaavance",
+                    id_trabajo: id_puesto2_usuario
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "ControllerGraficas",
+                    data: params,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        let _data_graf = [
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            []
+                        ];
+                        for (let row of response) {
+                            _data_graf[0].push(parseInt(row.cand1));
+                            _data_graf[1].push(parseInt(row.cand2));
+                            _data_graf[2].push(parseInt(row.cand3));
+                            _data_graf[3].push(parseInt(row.cand4));
+                            _data_graf[4].push(parseInt(row.cand5));
+                            _data_graf[5].push(parseInt(row.cand6));
+                            _data_graf[6].push(parseInt(row.cand7));
+                            _data_graf[7].push(parseInt(row.cand8));
+                            _data_graf[8].push(row.fecha_min);
+                        }
+                        console.log(_data_graf);
+
+                        Highcharts.chart('container4', {
+                            chart: {
+                                type: 'line'
+                            },
+                            title: {
+                                text: 'Votos por tiempos'
+                            },
+                            subtitle: {
+                                text: 'Source: WorldClimate.com'
+                            },
+                            xAxis: {
+                                categories: _data_graf[8]
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Votos'
+                                }
+                            },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            series: [{
+                                    name: 'Cand 1',
+                                    data: _data_graf[0]
+                                }, {
+                                    name: 'Cand 2',
+                                    data: _data_graf[1]
+                                }, {
+                                    name: 'Cand 3',
+                                    data: _data_graf[2]
+                                }, {
+                                    name: 'Cand 4',
+                                    data: _data_graf[3]
+                                }, {
+                                    name: 'Cand 5',
+                                    data: _data_graf[4]
+                                }, {
+                                    name: 'Cand 6',
+                                    data: _data_graf[5]
+                                }, {
+                                    name: 'Cand 7',
+                                    data: _data_graf[6]
+                                }, {
+                                    name: 'Cand 8',
+                                    data: _data_graf[7]
+                                }
+                            ]
+                        });
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
             $(document).ready(function () {
+                graficaavance();
                 select_grafica1();
+                select_grafica2();
+//                calcular();
             });
 
 
-            Highcharts.chart('container3', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Monthly Average Rainfall'
-                },
-                subtitle: {
-                    text: 'Source: SystelVoice.com'
-                },
-                xAxis: {
-                    categories: [
-                        'Candidatos'
-                    ],
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Respuesta'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y:.0f} votos</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: [{
-                        name: 'Candidato 1',
-                        data: [49]
 
-                    }, {
-                        name: 'Candidato 2',
-                        data: [83]
 
-                    }, {
-                        name: 'Candidato 3',
-                        data: [48]
 
-                    }, {
-                        name: 'Candidato 4',
-                        data: [42]
 
-                    }]
-            });
+
+
+
+
 
         </script>
     </body>

@@ -34,17 +34,41 @@ public class ControllerGraficas extends HttpServlet {
         String action = request.getParameter("action");
         
         if (action.equals("grafica1")) {
-            String Respuesta = ModelGraficas.grafica1();
+            String Respuesta = ModelGraficas.grafica1(
+                    request.getParameter("id_trabajo")
+            );
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
             writer.print(Respuesta);
             writer.flush();
             writer.close();
-        } else if (action.equals("select_datos_cuenta")) {
-            String Respuesta = "";
-//            ModelGestor.select_datos_cuenta(
-//                    request.getParameter("cuenta")
-//            );
+        } else if (action.equals("grafica2")) {
+            String Respuesta = ModelGraficas.grafica2(
+                    request.getParameter("id_trabajo")
+            );
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter writer = response.getWriter();
+            writer.print(Respuesta);
+            writer.flush();
+            writer.close();
+        } else if (action.equals("select_id_trabajo")) {
+            String Respuesta = ModelGraficas.select_id_trabajo();
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter writer = response.getWriter();
+            writer.print(Respuesta);
+            writer.flush();
+            writer.close();
+        } else if (action.equals("grafica4")) {
+            String Respuesta = ModelGraficas.grafica4();
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter writer = response.getWriter();
+            writer.print(Respuesta);
+            writer.flush();
+            writer.close();
+        } else if (action.equals("graficaavance")) {
+            String Respuesta = ModelGraficas.graficaavance(
+                    request.getParameter("id_trabajo")
+            );
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
             writer.print(Respuesta);

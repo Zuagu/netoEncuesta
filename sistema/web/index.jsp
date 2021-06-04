@@ -33,11 +33,10 @@
                     </form>
                 </div>
             </div>
-            <div class="call-text" style="background-color: #f7f7f7;">
-                <div class="col s10 m10 l10 offset-s1">
-                    
+            <div class="call-text" style="background-color: #ffffff;">
+                <div class="col s10 m10 l10 offset-s1 center">
+                   <img  width="100%" src="image/exitpoll.jpg" style=""> 
                 </div>
-                <img  width="70%" src="image/systel.jpeg" style="margin-top: 20px;">
             </div>
 
         </div>

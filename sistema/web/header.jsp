@@ -22,7 +22,7 @@
 <nav class="header_nav"  style="background: linear-gradient(to left, #8acaf9, #007edd);">
     <div class="nav-wrapper icon_nav">
         <ul>
-            <li href="#!" class=""><img src="image/systel.jpeg" alt="image/systel.jpeg" class="img_log"></li> 
+            <li href="#!" class=""><img src="image/exitpoll.jpg" alt="image/exitpoll.jpg" class="img_log"></li> 
         </ul> 
         <ul class="right size_ul ul_margin_top">
             <li><a class="size_ul dropdown-trigger" href="#!" data-target="dropdown1"><img id="foto_perfil" class="circle size_ul margin_17_top" src="image/icon-user.png"></a></li>

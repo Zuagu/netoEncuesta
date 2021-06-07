@@ -35,27 +35,41 @@
             <div class="row">
 
                 <div class="col s12 hoverable card">
+                    <div class="col s12">
+                        <div class="col s6 right-align">
+                            SI: <b id="cont_votos_si"></b>
+                        </div>
+                        <div class="col s6 left-align">
+                            NO: <b id="cont_votos_no"></b>
+                        </div>
+                    </div>
+                    <br>
                     <div id="container2"></div>
                     <p class="highcharts-description">
-                        SI: <b id="cont_votos_si"></b> <br>
-                        NO: <b id="cont_votos_no"></b> <br>
                         Cantidad de encuestados de salida: <b id="cont_votos"></b>
                     </p>
-                    <p class="highcharts-description">
-                        SE AUTORIZA LA REPRODUCCIÓN AL HACER REFERENCIA DEL AUTOR, SALVO APLIQUE VEDA ELECTORAL. ENCUESTA REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
+                    <p class="highcharts-description center-align">
+                        "ENCUESTA PRIVADA, NO AUTORIZADA SU DISTRIBUCIÓN,  QUEDA PROHIBIDA SU REPRODUCCIÓN TOTAL O PARCIAL AL HACER REFERENCIA DEL AUTOR" TODOS LOS DERECHOS RESERVADOS, ENCUESTA NO REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
                     </p>
                 </div>
                 <div class="col s12 hoverable card">
                     <div id="container3"></div>
-                    <p class="highcharts-description">
-                        SE AUTORIZA LA REPRODUCCIÓN AL HACER REFERENCIA DEL AUTOR, SALVO APLIQUE VEDA ELECTORAL. ENCUESTA REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
+                    <p class="highcharts-description center-align">
+                        "ENCUESTA PRIVADA, NO AUTORIZADA SU DISTRIBUCIÓN,  QUEDA PROHIBIDA SU REPRODUCCIÓN TOTAL O PARCIAL AL HACER REFERENCIA DEL AUTOR" TODOS LOS DERECHOS RESERVADOS, ENCUESTA NO REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
                     </p>
                 </div>
 
                 <div class="col s12 hoverable card">
                     <div id="container4"></div>
-                    <p class="highcharts-description">
-                        SE AUTORIZA LA REPRODUCCIÓN AL HACER REFERENCIA DEL AUTOR, SALVO APLIQUE VEDA ELECTORAL. ENCUESTA REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
+                    <p class="highcharts-description center-align">
+                        "ENCUESTA PRIVADA, NO AUTORIZADA SU DISTRIBUCIÓN,  QUEDA PROHIBIDA SU REPRODUCCIÓN TOTAL O PARCIAL AL HACER REFERENCIA DEL AUTOR" TODOS LOS DERECHOS RESERVADOS, ENCUESTA NO REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
+                    </p>
+                </div>
+                
+                <div class="col s12 hoverable card">
+                    <div id="container5"></div>
+                    <p class="highcharts-description center-align">
+                        "ENCUESTA PRIVADA, NO AUTORIZADA SU DISTRIBUCIÓN,  QUEDA PROHIBIDA SU REPRODUCCIÓN TOTAL O PARCIAL AL HACER REFERENCIA DEL AUTOR" TODOS LOS DERECHOS RESERVADOS, ENCUESTA NO REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
                     </p>
                 </div>
 
@@ -64,9 +78,9 @@
 
         <footer class="page-footer">
 
-            <div class="footer-copyright">
+            <div class="footer-copyright center-align">
                 <div class="container">
-                    © SE AUTORIZA LA REPRODUCCIÓN AL HACER REFERENCIA DEL AUTOR, SALVO APLIQUE VEDA ELECTORAL. ENCUESTA REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
+                        "ENCUESTA PRIVADA, NO AUTORIZADA SU DISTRIBUCIÓN,  QUEDA PROHIBIDA SU REPRODUCCIÓN TOTAL O PARCIAL AL HACER REFERENCIA DEL AUTOR" TODOS LOS DERECHOS RESERVADOS, ENCUESTA NO REGISTRADA ANTE LA AUTORIDAD ELECTORAL.
                 </div>
             </div>
         </footer>
@@ -139,8 +153,8 @@
                         $("#cont_votos_si").empty();
                         $("#cont_votos_no").empty();
                         $("#cont_votos").append(parseInt(response[0].valor) + parseInt(response[1].valor));
-                        $("#cont_votos_si").append(parseInt(response[0].valor));
-                        $("#cont_votos_no").append(parseInt(response[1].valor));
+                        $("#cont_votos_si").append( (( parseInt(response[0].valor) / ( parseInt(response[0].valor) + parseInt(response[1].valor) ) ) * 100).toFixed(1) + "%" );
+                        $("#cont_votos_no").append( (( parseInt(response[1].valor) / ( parseInt(response[0].valor) + parseInt(response[1].valor) ) ) * 100).toFixed(1) + "%" );
 
                     },
                     error: function (error) {
@@ -167,38 +181,45 @@
                                 type: 'column'
                             },
                             title: {
-                                text: 'Grafica de votos'
+                                text: 'Grafica de votos 2021'
                             },
                             subtitle: {
-                                text: 'Source: SystelVoice.com'
+                                text: 'Nayarit'
                             },
                             xAxis: {
-                                categories: [
-                                    'Candidatos'
-                                ],
-                                crosshair: true
+                                type: 'category'
                             },
                             yAxis: {
-                                min: 0,
                                 title: {
-                                    text: 'Respuesta'
+                                    text: 'Total percent market share'
                                 }
+
                             },
-                            tooltip: {
-                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                        '<td style="padding:0"><b>{point.y:.0f} votos</b></td></tr>',
-                                footerFormat: '</table>',
-                                shared: true,
-                                useHTML: true
+                            legend: {
+                                enabled: false
                             },
                             plotOptions: {
-                                column: {
-                                    pointPadding: 0.2,
-                                    borderWidth: 0
+                                series: {
+                                    borderWidth: 0,
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '{point.y:.1f}%'
+                                    }
                                 }
                             },
-                            series: response
+
+                            tooltip: {
+                                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                            },
+
+                            "series": [
+                                        {
+                                            "name": "Browsers",
+                                            "colorByPoint": true,
+                                            "data": response
+                                        }
+                                    ]
                         });
 
                     },
@@ -253,14 +274,14 @@
                                 text: 'Votos por tiempos'
                             },
                             subtitle: {
-                                text: 'Source: WorldClimate.com'
+                                text: 'Nayarit'
                             },
                             xAxis: {
                                 categories: _data_graf[8]
                             },
                             yAxis: {
                                 title: {
-                                    text: 'Votos'
+                                    text: '% Votos'
                                 }
                             },
                             plotOptions: {
@@ -271,31 +292,129 @@
                                     enableMouseTracking: false
                                 }
                             },
-                            colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
-                                '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
+                            colors: ['#7F1E57', '#1b8cf7', '#ff8300', '#d8ea36', '#f4122e', '#ffb308', '#5a2a7c', '#ed62a1'],
                             series: [{
-                                    name: 'Miguel Angel ( MORENA, PT, PARTIDO VERDE, NUEVA ALIANZA)',
+                                    name: 'MIGUEL ÁNGEL NAVARRO QUINTERO de MORENA, PT, PARTIDO VERDE, NUEVA ALIANZA',
                                     data: _data_graf[0]
                                 }, {
-                                    name: 'Gloria Nuñes (PAN, PRI, PRD)',
+                                    name: 'GLORIA NÚÑEZ del PAN-PRI,PRD',
                                     data: _data_graf[1]
                                 }, {
-                                    name: 'Ignacio Flores (MOVIMIENTO CIUDADANO)',
+                                    name: 'IGNACIO FLORES DE MOVIMIENTO CIUDADANO',
                                     data: _data_graf[2]
                                 }, {
-                                    name: 'Agueda Garcia (LEVÁNTATE NAYARIT)',
+                                    name: 'ÁGUEDA GALICIA DE LEVÁNTATE NAYARIT',
                                     data: _data_graf[3]
                                 }, {
-                                    name: 'Nayar Mayorquin (RSP)',
+                                    name: 'NAYAR MAYORQUÍN DE RSP',
                                     data: _data_graf[4]
                                 }, {
-                                    name: 'Victor Chavez (VIVA NAYARIT)',
+                                    name: 'VÍCTOR CHÁVEZ, DE VIVA NAYARIT',
                                     data: _data_graf[5]
                                 }, {
-                                    name: 'Natalia Rojas (PES)',
+                                    name: 'NATALIA ROJAS DEL PES',
                                     data: _data_graf[6]
                                 }, {
-                                    name: 'Bricet Tayzan (VIVA NAYARIT)',
+                                    name: 'BRICET TAYZÁN DE FUERZA POR MÉXICO',
+                                    data: _data_graf[7]
+                                }
+                            ]
+                        });
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+            
+            
+            function graficaavance2() {
+                let params = {
+                    action: "graficaavance2",
+                    id_trabajo: id_puesto2_usuario
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "ControllerGraficas",
+                    data: params,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        let _data_graf = [
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            []
+                        ];
+                        for (let row of response) {
+                            _data_graf[0].push(parseInt(row.cand1));
+                            _data_graf[1].push(parseInt(row.cand2));
+                            _data_graf[2].push(parseInt(row.cand3));
+                            _data_graf[3].push(parseInt(row.cand4));
+                            _data_graf[4].push(parseInt(row.cand5));
+                            _data_graf[5].push(parseInt(row.cand6));
+                            _data_graf[6].push(parseInt(row.cand7));
+                            _data_graf[7].push(parseInt(row.cand8));
+                            _data_graf[8].push(row.fecha_min);
+                        }
+                        console.log(_data_graf);
+
+                        Highcharts.chart('container5', {
+                            chart: {
+                                type: 'line'
+                            },
+                            title: {
+                                text: 'Votos por tiempos'
+                            },
+                            subtitle: {
+                                text: 'Nayarit'
+                            },
+                            xAxis: {
+                                categories: _data_graf[8]
+                            },
+                            yAxis: {
+                                title: {
+                                    text: '% Votos'
+                                }
+                            },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            colors: ['#7F1E57', '#1b8cf7', '#ff8300', '#d8ea36', '#f4122e', '#ffb308', '#5a2a7c', '#ed62a1'],
+                            series: [{
+                                    name: 'MIGUEL ÁNGEL NAVARRO QUINTERO de MORENA, PT, PARTIDO VERDE, NUEVA ALIANZA',
+                                    data: _data_graf[0]
+                                }, {
+                                    name: 'GLORIA NÚÑEZ del PAN-PRI,PRD',
+                                    data: _data_graf[1]
+                                }, {
+                                    name: 'IGNACIO FLORES DE MOVIMIENTO CIUDADANO',
+                                    data: _data_graf[2]
+                                }, {
+                                    name: 'ÁGUEDA GALICIA DE LEVÁNTATE NAYARIT',
+                                    data: _data_graf[3]
+                                }, {
+                                    name: 'NAYAR MAYORQUÍN DE RSP',
+                                    data: _data_graf[4]
+                                }, {
+                                    name: 'VÍCTOR CHÁVEZ, DE VIVA NAYARIT',
+                                    data: _data_graf[5]
+                                }, {
+                                    name: 'NATALIA ROJAS DEL PES',
+                                    data: _data_graf[6]
+                                }, {
+                                    name: 'BRICET TAYZÁN DE FUERZA POR MÉXICO',
                                     data: _data_graf[7]
                                 }
                             ]
@@ -309,9 +428,13 @@
             }
 
             $(document).ready(function () {
+                Highcharts.setOptions({
+                    colors: ['#7F1E57', '#1b8cf7', '#ff8300', '#d8ea36', '#f4122e', '#ffb308', '#5a2a7c', '#ed62a1']
+                });
                 graficaavance();
                 select_grafica1();
                 select_grafica2();
+                graficaavance2();
 //                calcular();
             });
 

@@ -74,7 +74,16 @@ public class ControllerGraficas extends HttpServlet {
             writer.print(Respuesta);
             writer.flush();
             writer.close();
-        } 
+        } else if (action.equals("graficaavance2")) {
+            String Respuesta = ModelGraficas.graficaavance2(
+                    request.getParameter("id_trabajo")
+            );
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter writer = response.getWriter();
+            writer.print(Respuesta);
+            writer.flush();
+            writer.close();
+        }  
         
     }
 

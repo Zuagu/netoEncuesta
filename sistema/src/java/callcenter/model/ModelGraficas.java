@@ -73,11 +73,12 @@ public class ModelGraficas {
             while (ic.rs.next()) {
                 JSONObject ressEnc = new JSONObject();
 
-                JSONArray dataVote = new JSONArray();
-                dataVote.add(ic.rs.getInt("cant"));
+//                JSONArray dataVote = new JSONArray();
+//                dataVote.add(ic.rs.getInt("porcentaje"));
 
-                ressEnc.put("name", "Candidato " + ic.rs.getString("preg2"));
-                ressEnc.put("data", dataVote);
+                ressEnc.put("name", ic.rs.getString("preg2"));
+                ressEnc.put("y", ic.rs.getFloat("porcentaje"));
+                ressEnc.put("drilldown", ic.rs.getString("preg2"));
 
                 dataEncuesta.add(ressEnc);
             }
@@ -145,6 +146,40 @@ public class ModelGraficas {
             StartConexion ic = new StartConexion();
             JSONArray dataEncuesta = new JSONArray();
             String sql = "call neto_grafica_avance(" + id_trabajo + ");";
+            System.out.println(sql);
+            ic.rs = ic.st.executeQuery(sql);
+            // preg1, valor
+            while (ic.rs.next()) {
+                JSONObject votos = new JSONObject();
+                votos.put("fecha_min", ic.rs.getString("fecha_min"));
+                votos.put("id_trabajo", ic.rs.getString("id_trabajo"));
+                votos.put("cand1", ic.rs.getString("cand1"));
+                votos.put("cand2", ic.rs.getString("cand2"));
+                votos.put("cand3", ic.rs.getString("cand3"));
+                votos.put("cand4", ic.rs.getString("cand4"));
+                votos.put("cand5", ic.rs.getString("cand5"));
+                votos.put("cand6", ic.rs.getString("cand6"));
+                votos.put("cand7", ic.rs.getString("cand7"));
+                votos.put("cand8", ic.rs.getString("cand8"));
+                votos.put("fecha_max", ic.rs.getString("fecha_max"));
+                dataEncuesta.add(votos);
+            }
+            ic.conn.close();
+            ic.rs.close();
+            ic.st.close();
+            return dataEncuesta.toJSONString();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return "";
+        }
+    }
+    
+    
+    public static String graficaavance2(String id_trabajo) {
+        try {
+            StartConexion ic = new StartConexion();
+            JSONArray dataEncuesta = new JSONArray();
+            String sql = "call neto_grafica_avance2(" + id_trabajo + ");";
             System.out.println(sql);
             ic.rs = ic.st.executeQuery(sql);
             // preg1, valor

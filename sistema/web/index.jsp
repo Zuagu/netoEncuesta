@@ -16,7 +16,7 @@
         <div class="wrapper col s12 m12 l12">
             <div class="login-text">
                 <button class="cta"><i class="material-icons">arrow_downward</i></button>
-                <div class="input-field text">
+                <div class="input-field text center">
                     <form id="login" class="" style="" name="login" action="/sistema/main.jsp" method="post">
                         <h3 class="center">Inicia</h3>
                         <div class="input-field col s12 m12 l12">
@@ -26,17 +26,15 @@
                             <label for="usuario" class="color:white !important;">Usuario</label>
                         </div>
                         <div class="input-field col s12 m12 l12">
-                            <input placeholder="Contraseña" name="password" id="password" type="text" class="validate" style="background-color: white !important; border-radius:4px;color: black; width: 95%;">
+                            <input placeholder="Contraseña" name="password" id="password" type="password" class="validate" style="background-color: white !important; border-radius:4px;color: black; width: 95%;">
                             <label for="password" class="color:white !important;">Contraseña</label>
                         </div>
                         <a id="iniciar_sesion" class="boton_login z-depth-2 hoverable">Acceder</a>
                     </form>
                 </div>
             </div>
-            <div class="call-text" style="background-color: #ffffff;">
-                <div class="col s10 m10 l10 offset-s1 center">
-                   <img  width="100%" src="image/exitpoll.jpg" style=""> 
-                </div>
+            <div class="call-text center" style="background-color: #ffffff;">
+                <img id="net_logo" src="image/exitpoll.jpg" style=""> 
             </div>
 
         </div>

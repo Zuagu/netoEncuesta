@@ -12,6 +12,18 @@
               type="javax.sql.DataSource" 
               url="jdbc:mysql://localhost:3306/arcade_call?autoReconnect=true" 
               username="admin"/>
+    <Resource auth="Container2" 
+              driverClassName="com.mysql.jdbc.Driver" 
+              jdbcCompiliantTruncation="false" 
+              logAbandoned="true" name="jdbc/server1" 
+              maxActive="20" 
+              maxIdle="10"
+              password="sicsa2019" 
+              removeAbandoned="true" 
+              removeAbandonedTimeout="300" 
+              type="javax.sql.DataSource" 
+              url="jdbc:mysql://201.172.31.105:3306/arcade_call?autoReconnect=true" 
+              username="root"/>
 </Context>
 
 <!--<Context antiJARLocking="true" path="/sistema">
